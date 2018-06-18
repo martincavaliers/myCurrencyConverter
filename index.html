@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>Currency Converter</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link rel = "stylesheet" href = "main.css">
+  </head>
+
+<header>
+  <div id = "header-div">
+    <h1 class = "text-center">Your Currency Converter</h1>
+  </div>
+</header>
+
+<body>
+  <div class = "container-fluid">
+
+    <div class = "row">
+      <div id  = "currentContainer" class = "col-lg-6">
+        <label>How much money do you have?</label>
+        <select id = "currentCurrencyType">
+          <option value="£">£ British Pounds</option>
+          <option value="$">$ American Dollar</option>
+          <option value="€">€ Euro</option>
+          <option value="¥">¥ Japanese Yen</option>
+          <option value="$">$ Canadian Dollar</option>
+          <option value="CHF">CHF Swiss Franc</option>
+        </select>
+        <input id = "currentMoney"></input>
+      </div>
+     
+      <div id = "newContainer" class = "col-lg-6">
+        <label>Current transfer rate:</label>
+        <select id = "newCurrencyType">
+          <option value="£">£ British Pounds</option>
+          <option value="$">$ American Dollar</option>
+          <option value="€">€ Euro</option>
+          <option value="¥">¥ Japanese Yen</option>
+          <option value="$">$ Canadian Dollar</option>
+          <option value="CHF">CHF Swiss Franc</option>
+        </select>
+        <input id = "transferRate"></input>
+      </div>
+    </div>
+
+    <div class = "row">
+        <div id = "valueContainer" class = "col-lg-6">
+          <label>New Currency Value:</label>
+          <input id = "newValue" disabled = "true"></input>
+        </div>
+        <div id = "btnContainer" class = "col-lg-6">
+          <button id = "calculateBtn" class = "btn btn-primary">Calculate</button>
+          <button id = "clearBtn" class = "btn btn-danger">Clear</button>
+        </div>
+    </div>
+
+ <!-- Place to store values in an array -->
+
+ <div id = "previousDiv" class = "container-fluid row">
+  <label>Previous Values:</label>
+   <div id = "arrayDiv" class = "container col-lg-12">
+   </div>
+ </div>
+
+
+  </div>
+
+
+
+
+  <script src = "app.js"></script>
+</body>
+</html>

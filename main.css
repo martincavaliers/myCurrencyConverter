@@ -1,0 +1,61 @@
+header{
+    margin-top: -20px;
+    padding-bottom: 20px;
+    background-color: #d8dce0;
+}
+
+h1{
+	padding-top: 20px;
+	text-decoration: underline;
+}
+
+select{
+	margin: 0 5px 0 5px;
+}
+
+#currentContainer, #newContainer{
+	padding: 40px 20px 20px 40px;
+}
+
+#valueContainer, #btnContainer{
+	padding: 40px 10px 5px 40px;
+}
+
+#arrayDiv{
+    height: 400px;
+    width: 100%;
+    /*Stops scroll bar appearing*/
+    overflow-x: hidden;
+    /*Wraps word to next line instead of continuing on same line*/
+    word-wrap: break-word; 
+    background-color: #e0dbd8;
+
+    border: 5px inset;
+    box-shadow: 5px 5px #888
+
+    font-size: 20pt;
+}
+
+#previousDiv{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+
+/*Media Queries*/
+@media only screen and (max-width: 400px) {
+    #newContainer label{
+    	padding-right: 100px;	
+    }
+
+    #btnContainer{
+        padding-left: 120px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+
+    #btnContainer{
+    	margin-left: -270px;
+    }
+}
