@@ -11,9 +11,7 @@ function $getTransferRate(currency1, currency2){
     const transferSelector = currency1+"_"+currency2;
     console.log(transferSelector);
     $.get( "https://free.currencyconverterapi.com/api/v6/convert?q="+transferSelector , function( data ) {
-        const transfer = getNestedObject(data.results, [transferSelector, 'val']);
-        console.log(transfer);
-        return transfer;
+         transfer = getNestedObject(data.results, [transferSelector, 'val']);
       });
 }
 
@@ -53,9 +51,11 @@ const GBP = {
         code: "CHF"
     };
 
+const transferInput = document.querySelector('#transferRate');
 let currentCurrency;
 let currentAmount;
 let newCurrency;
+let transfer;
 let transferRate;
 let newValue;
 
@@ -64,6 +64,7 @@ let newValue;
 $(document).ready(function(){
     // Calculate button event handler
     $('#calculateBtn').click(function(){
+        
         // Get current currency
         currentCurrency = $('#currentCurrencyType').val();
 
@@ -74,8 +75,9 @@ $(document).ready(function(){
         newCurrency = $('#newCurrencyType').val();
 
         // Get transfer rate
-        transferRate = $getTransferRate(currentCurrency, newCurrency);
+         $getTransferRate(currentCurrency, newCurrency);
 
+         transferInput.value = transfer;
     });
 
 });
