@@ -1,26 +1,21 @@
 'use strict';
 
+// Breaks down object nesting to access 
 const getNestedObject = (nestedObj, pathArr) => {
     return pathArr.reduce((obj, key) =>
         (obj && obj[key] !== 'undefined') ? obj[key] : undefined, nestedObj);
 }
 
+// Gets current transfer rate from API
 function $getTransferRate(currency1, currency2){
-    const transferSelector = currency1.code+"_"+currency2.code;
+    const transferSelector = currency1+"_"+currency2;
     console.log(transferSelector);
     $.get( "https://free.currencyconverterapi.com/api/v6/convert?q="+transferSelector , function( data ) {
         const transfer = getNestedObject(data.results, [transferSelector, 'val']);
         console.log(transfer);
         return transfer;
       });
-
 }
-
-// // pass in your object structure as array elements
-// const name = getNestedObject(user, ['personalInfo', 'name']);
-// // to access nested array, just pass in array index as an element the path array.
-// const city = getNestedObject(user, ['personalInfo', 'addresses', 0, 'city']);
-// // this will return the city from the first address item.
 
 const GBP = {
         name: "British Pounds",
@@ -58,13 +53,29 @@ const GBP = {
         code: "CHF"
     };
 
-let originalCurrency;
-
+let currentCurrency;
+let currentAmount;
+let newCurrency;
+let transferRate;
+let newValue;
 
 
 // Document ready wrapper
 $(document).ready(function(){
+    // Calculate button event handler
+    $('#calculateBtn').click(function(){
+        // Get current currency
+        currentCurrency = $('#currentCurrencyType').val();
 
-    
+        // Get current amount
+        currentAmount = $('#currentMoney').val();
+
+        // Get desired currency
+        newCurrency = $('#newCurrencyType').val();
+
+        // Get transfer rate
+        transferRate = $getTransferRate(currentCurrency, newCurrency);
+
+    });
 
 });
