@@ -1,5 +1,27 @@
 'use strict';
 
+const getNestedObject = (nestedObj, pathArr) => {
+    return pathArr.reduce((obj, key) =>
+        (obj && obj[key] !== 'undefined') ? obj[key] : undefined, nestedObj);
+}
+
+function $getTransferRate(currency1, currency2){
+    const transferSelector = currency1.code+"_"+currency2.code;
+    console.log(transferSelector);
+    $.get( "https://free.currencyconverterapi.com/api/v6/convert?q="+transferSelector , function( data ) {
+        const transfer = getNestedObject(data.results, [transferSelector, 'val']);
+        console.log(transfer);
+        return transfer;
+      });
+
+}
+
+// // pass in your object structure as array elements
+// const name = getNestedObject(user, ['personalInfo', 'name']);
+// // to access nested array, just pass in array index as an element the path array.
+// const city = getNestedObject(user, ['personalInfo', 'addresses', 0, 'city']);
+// // this will return the city from the first address item.
+
 const GBP = {
         name: "British Pounds",
         symbol: "£",
@@ -43,9 +65,6 @@ let originalCurrency;
 // Document ready wrapper
 $(document).ready(function(){
 
-    $.get( "https://free.currencyconverterapi.com/api/v6/convert?q=USD_PHP", function( data ) {
-        console.log(data.results);
-      });
-
+    
 
 });
