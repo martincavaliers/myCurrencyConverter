@@ -1,25 +1,25 @@
 'use strict'
 
-var currencyJson;
+var currencyJson = [];
+var currencyList;
 var currencyType;
 
-function getList(){
-    fetch('https://free.currencyconverterapi.com/api/v6/currencies')
-    .then(function(response) {
-        return response.json();
-      })
-      .then(function(myJson) {
-        JSON.stringify(myJson);
-        currencyJson = myJson.results;
-      });
+// function getList(){
+//     $.get('https://free.currencyconverterapi.com/api/v6/currencies');
+//     c
+// }
+
+function createArray(api, array){
+    $.getJSON( api, function( data ) {
+        // console.log(data);
+        for(var i in data.results)
+            array.push([i, data.results [i]]);
+            JSON.stringify(array);
+    });
 }
 
-function parseList(arr){
-    for(var i = 0; i < arr.length; i++){
-        console.log(arr[i]);
-    }
-}
 
-$(document).ready(function(){
-     getList();
+
+$(document).ready(function () {
+    createArray("https://free.currencyconverterapi.com/api/v6/currencies", currencyJson);
 });
