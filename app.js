@@ -33,42 +33,6 @@ function calculateValue(a, b){
     return newVal;
 }
 
-const GBP = {
-        name: "British Pounds",
-        symbol: "£",
-        code: "GBP"
-    };
-
-    const USD = {
-        name: "American Dollars",
-        symbol: "$",
-        code: "USD"
-    };
-
-    const EUR = {
-        name: "Euros",
-        symbol: "€",
-        code: "EUR"
-    };
-
-    const JPY = {
-        name: "Japanese Yen",
-        symbol: "¥",
-        code: "JPY"
-    };
-    
-    const CAD = {
-        name: "Canadian Dollars",
-        symbol: "$",
-        code: "CAD"
-    };
-
-    const CHF = {
-        name: "Swiss Franc",
-        symbol: "CHF",
-        code: "CHF"
-    };
-
 // Document ready wrapper
 $(document).ready(function(){
     

@@ -1,53 +1,95 @@
-//Executes on page load.
-document.addEventListener('DOMContentLoaded', (e) => {
-const calculateBtn = document.getElementById('calculateBtn');
-//Create array to store values
-});
+'use strict';
 
-let valueArray = new Array();
+let currentCurrency;
+let currentAmount;
+let newCurrency;
+let transfer;
+let transferRate;
+let newValue;
 
-//Calculate value function
-function calculateValue(valueOne, valueTwo){
-	const value = (valueOne * valueTwo).toFixed(2);
-	return value;
-}
-//Adds value onto an array
-function pushToArray(value, array){
-    array.push(value);
-    return newValue
+// Breaks down object nesting to access 
+const getNestedObject = (nestedObj, pathArr) => {
+    return pathArr.reduce((obj, key) =>
+        (obj && obj[key] !== 'undefined') ? obj[key] : undefined, nestedObj);
 }
 
-//Executes when calculate button is clicked
-calculateBtn.addEventListener('click', (e) => {
-    //Take value of current currency input and type selection and assign it to variable
-    const currentCurrencyType = document.getElementById("currentCurrencyType").value;
-    const currentMoney = document.getElementById('currentMoney').value;
+// Gets current transfer rate from API
+function $getTransferRate(currency1, currency2){
+    const transferSelector = currency1+"_"+currency2;
+    // console.log(transferSelector);
+    $.get( "https://free.currencyconverterapi.com/api/v6/convert?q="+transferSelector , function( data ) {
+         transfer = getNestedObject(data.results, [transferSelector, 'val']);
+        //  console.log(transfer);
+      });
+}
 
-    //Take value of current transfer rate and currency type store it as variable
-    const newCurrencyType = document.getElementById("newCurrencyType").value;
-    const transferRate = document.getElementById('transferRate').value;
+function $getVal(selector){
+     return $(selector).val();
+}
 
-    //Check that inputs are numbers
-    	//If false displays error
-    	//If true executes code
-	if(isNaN(currentMoney) || isNaN(transferRate)){
-		alert('One of your submissions is not a number, please try again');
-	}else{
-    //Mutliply the two variables
-    const newValue = calculateValue(currentMoney, transferRate);
+function calculateValue(a, b){
+    let newAmount = a * b;
+    let newVal = toString(newAmount);
+    return newVal;
+}
 
-    //Display result in third input field
-    document.getElementById('newValue').value = newCurrencyType + " " + newValue;
-    //Adds displayed value to array
-    pushToArray(newCurrencyType + newValue, valueArray);
-	}
-    // Write array to page
-    document.getElementById('arrayDiv').innerHTML = valueArray.toString();
-    document.getElementById('arrayDiv').style.fontSize = "x-large";
-});
+const GBP = {
+        name: "British Pounds",
+        symbol: "£",
+        code: "GBP"
+    };
 
+    const USD = {
+        name: "American Dollars",
+        symbol: "$",
+        code: "USD"
+    };
 
-//Reload the page when clear button hit
-clearBtn.addEventListener('click', (e) => {
-  location.reload();
+    const EUR = {
+        name: "Euros",
+        symbol: "€",
+        code: "EUR"
+    };
+
+    const JPY = {
+        name: "Japanese Yen",
+        symbol: "¥",
+        code: "JPY"
+    };
+    
+    const CAD = {
+        name: "Canadian Dollars",
+        symbol: "$",
+        code: "CAD"
+    };
+
+    const CHF = {
+        name: "Swiss Franc",
+        symbol: "CHF",
+        code: "CHF"
+    };
+
+// Document ready wrapper
+$(document).ready(function(){
+    
+    // Calculate button event handler
+    $('#calculateBtn').click(function(){
+
+        
+        currentCurrency = $getVal('#currentCurrencyType');
+        newCurrency = $getVal('#newCurrencyType');
+
+        // Get current amount
+        currentAmount = $getVal('#currentMoney');
+
+        // Get transfer rate
+         $getTransferRate(currentCurrency, newCurrency);
+
+         $('#transferRate').val(transfer);
+
+         calculateValue(currentAmount, transfer);
+
+         $('#newValue').val(newValue);
+    });
+
 });
