@@ -1,15 +1,15 @@
 'use strict'
 
-var currencyJson = [];
-var currencyList = [];
-var currencyType;
+const currencyJson = [];
+let currentCurrency;
+let newCurrency;
 
 // function getList(){
 //     $.get('https://free.currencyconverterapi.com/api/v6/currencies');
 //     c
 // }
 
-function createArray(api, array) {
+function getCurrencyData(api, array) {
     $.getJSON(api, function (data) {
         // console.log(data.results);
 
@@ -34,18 +34,14 @@ function createArray(api, array) {
     });
 }
 
-function populateSelect(selectID) {
-
-}
-
 
 
 $(document).ready(function () {
-    createArray("https://free.currencyconverterapi.com/api/v6/currencies", currencyJson);
-});
+    getCurrencyData("https://free.currencyconverterapi.com/api/v6/currencies", currencyJson);
+    
+    // Calculate Button Event Handler
+    $('#calculateBtn').on('click', function(){
+        
+    });
 
-// for(var i = 0; i < currencyJson.length; i++){
-//     var symbol = currencyJson[i].id;
-//     var currency = currencyJson[i].currencyName
-//     $('#currentCurrencyType').append(`<option value = ${symbol}>` + currency + '</option>')
-// }
+});
