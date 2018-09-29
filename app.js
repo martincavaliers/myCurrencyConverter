@@ -2,9 +2,11 @@
 
 const currencyJson = [];
 let currentCurrency;
+let currentAmount;
 let newCurrency;
 let transferSelector;
 let transferRate;
+let newAmount;
 
 // function getList(){
 //     $.get('https://free.currencyconverterapi.com/api/v6/currencies');
@@ -36,8 +38,6 @@ function getCurrencyData(api, array) {
     });
 }
 
-
-
 $(document).ready(function () {
     getCurrencyData("https://free.currencyconverterapi.com/api/v6/currencies", currencyJson);
     
@@ -45,15 +45,19 @@ $(document).ready(function () {
     $('#calculateBtn').on('click', function(){
         currentCurrency = $('#currentCurrencyType').val();
         newCurrency = $('#newCurrencyType').val();
+        currentAmount = $('#currentMoney').val();
         transferSelector = currentCurrency+'_'+newCurrency;
         // console.log(currentCurrency, newCurrency);
 
         $.get('https://free.currencyconverterapi.com/api/v6/convert?q='+transferSelector, function(data){
             $.each(data.results, function(index, option){
                 transferRate = option.val;
-                console.log(transferRate);
+                $('#transferRate').val(transferRate);
             });
         });
+
+        newAmount = currentAmount * transferRate;
+        $('#newValue').val(newAmount);
     });
 
 });
