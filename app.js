@@ -3,6 +3,8 @@
 const currencyJson = [];
 let currentCurrency;
 let newCurrency;
+let transferSelector;
+let transferRate;
 
 // function getList(){
 //     $.get('https://free.currencyconverterapi.com/api/v6/currencies');
@@ -41,7 +43,17 @@ $(document).ready(function () {
     
     // Calculate Button Event Handler
     $('#calculateBtn').on('click', function(){
-        
+        currentCurrency = $('#currentCurrencyType').val();
+        newCurrency = $('#newCurrencyType').val();
+        transferSelector = currentCurrency+'_'+newCurrency;
+        // console.log(currentCurrency, newCurrency);
+
+        $.get('https://free.currencyconverterapi.com/api/v6/convert?q='+transferSelector, function(data){
+            $.each(data.results, function(index, option){
+                transferRate = option.val;
+                console.log(transferRate);
+            });
+        });
     });
 
 });
