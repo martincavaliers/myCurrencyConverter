@@ -8,11 +8,6 @@ let transferSelector;
 let transferRate;
 let newAmount;
 
-// function getList(){
-//     $.get('https://free.currencyconverterapi.com/api/v6/currencies');
-//     c
-// }
-
 function getCurrencyData(api, array) {
     $.getJSON(api, function (data) {
         // console.log(data.results);
@@ -44,27 +39,42 @@ $(document).ready(function () {
     
     // Calculate Button Event Handler
     $('#calculateBtn').on('click', function(){
+        
         currentCurrency = $('#currentCurrencyType').val();
         newCurrency = $('#newCurrencyType').val();
         currentAmount = $('#currentMoney').val();
         transferSelector = currentCurrency+'_'+newCurrency;
         // console.log(currentCurrency, newCurrency);
 
-        // Gets API data for transfer selector and fills the transfer rate and new value inputs
-        $.get('https://free.currencyconverterapi.com/api/v6/convert?q='+transferSelector, function(data){
-            $.each(data.results, function(index, option){
-                transferRate = option.val;
-                $('#transferRate').val(transferRate);
-                newAmount = currentAmount * transferRate;
-                return newAmount;
-            });
-        }).then(data => {
-            $('#newValue').val(newAmount);
-            // Prints value to previous values div
-            $('#arrayDiv').append(newAmount + ', ');
-        })
+        if(currentAmount === ""){
+            alert("Please input your current amount");
+            $('#currentMoney').addClass( "wrong" );
+        }else if(isNaN(currentAmount)){
+            alert("Current amount must be a number");
+            $('#currentMoney').addClass( "wrong" );
+        }else{
+            $('#currentMoney').removeClass( "wrong" );
+            // Gets API data for transfer selector and fills the transfer rate and new value inputs
+            $.get('https://free.currencyconverterapi.com/api/v6/convert?q='+transferSelector, function(data){
+                $.each(data.results, function(index, option){
+                    transferRate = option.val;
+                    $('#transferRate').val(transferRate);
+                    newAmount = currentAmount * transferRate;
+                    newAmount = newAmount.toFixed(2);
+                    return newAmount;
+                });
+            }).then(data => {
+                $('#newValue').val(newAmount);
+                // Prints value to previous values div
+                $('#arrayDiv').append(newAmount + ', ');
+            })
+    }
+    });
 
 
+    // Clear button event listener
+    $('#clearBtn').click(function() {
+        location.reload();
     });
 
 });

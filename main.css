@@ -41,6 +41,12 @@ select{
     padding-bottom: 20px;
 }
 
+/* Incorrect submission */
+.wrong{
+    border: 2px solid red;
+    border-radius: 5px; 
+}
+
 
 /*Media Queries*/
 @media only screen and (max-width: 400px) {
