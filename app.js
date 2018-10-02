@@ -39,6 +39,7 @@ function getCurrencyData(api, array) {
 }
 
 $(document).ready(function () {
+    // Get request to API for all required data
     getCurrencyData("https://free.currencyconverterapi.com/api/v6/currencies", currencyJson);
     
     // Calculate Button Event Handler
@@ -49,6 +50,7 @@ $(document).ready(function () {
         transferSelector = currentCurrency+'_'+newCurrency;
         // console.log(currentCurrency, newCurrency);
 
+        // Gets API data for transfer selector and fills the transfer rate and new value inputs
         $.get('https://free.currencyconverterapi.com/api/v6/convert?q='+transferSelector, function(data){
             $.each(data.results, function(index, option){
                 transferRate = option.val;
@@ -58,7 +60,11 @@ $(document).ready(function () {
             });
         }).then(data => {
             $('#newValue').val(newAmount);
+            // Prints value to previous values div
+            $('#arrayDiv').append(newAmount + ', ');
         })
+
+
     });
 
 });
