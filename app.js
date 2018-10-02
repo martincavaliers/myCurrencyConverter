@@ -53,11 +53,12 @@ $(document).ready(function () {
             $.each(data.results, function(index, option){
                 transferRate = option.val;
                 $('#transferRate').val(transferRate);
+                newAmount = currentAmount * transferRate;
+                return newAmount;
             });
-        });
-
-        newAmount = currentAmount * transferRate;
-        $('#newValue').val(newAmount);
+        }).then(data => {
+            $('#newValue').val(newAmount);
+        })
     });
 
 });
